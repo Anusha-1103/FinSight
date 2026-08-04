@@ -100,12 +100,14 @@ export const BudgetsGoals: React.FC = () => {
     queryClient.invalidateQueries({ queryKey: ['goals'] });
     queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     queryClient.invalidateQueries({ queryKey: ['analytics'] });
+    queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
   };
 
   const invalidateBudgetQueries = () => {
     queryClient.invalidateQueries({ queryKey: ['budgets'] });
     queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     queryClient.invalidateQueries({ queryKey: ['analytics'] });
+    queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
   };
 
   // Budget Handlers

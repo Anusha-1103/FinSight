@@ -109,6 +109,7 @@ export const Subscriptions: React.FC = () => {
     queryClient.invalidateQueries({ queryKey: ['transactions'] });
     queryClient.invalidateQueries({ queryKey: ['accounts'] });
     queryClient.invalidateQueries({ queryKey: ['budgets'] });
+    queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
   };
 
   const handleCycleChangeAdd = (cycle: 'MONTHLY' | 'ANNUAL') => {

@@ -83,6 +83,7 @@ export const Accounts: React.FC = () => {
         setCreateForm({ name: '', type: 'CHECKING', balance: '', accountNumber: '' });
         showToast('Account Added', `${res.data.data.name} has been added successfully.`, 'success');
         queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+        queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
       }
     } catch (err: any) {
       const msg = err.response?.data?.error || 'Failed to add account.';
@@ -118,6 +119,7 @@ export const Accounts: React.FC = () => {
         setEditingAccount(null);
         showToast('Account Updated', `${updated.name} details saved.`, 'success');
         queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+        queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
       }
     } catch (err: any) {
       const msg = err.response?.data?.error || 'Failed to update account.';
@@ -137,6 +139,7 @@ export const Accounts: React.FC = () => {
         showToast('Account Deleted', `${deletingAccount.name} was removed.`, 'info');
         setDeletingAccount(null);
         queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+        queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
       }
     } catch (err: any) {
       const msg = err.response?.data?.error || 'Failed to delete account.';

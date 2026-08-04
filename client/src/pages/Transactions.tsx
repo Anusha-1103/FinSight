@@ -137,6 +137,7 @@ export const Transactions: React.FC = () => {
     queryClient.invalidateQueries({ queryKey: ['dashboard'] });
     queryClient.invalidateQueries({ queryKey: ['analytics'] });
     queryClient.invalidateQueries({ queryKey: ['budgets'] });
+    queryClient.invalidateQueries({ queryKey: ['ai-summary'] });
   };
 
   const handleCreateTransaction = async (e: React.FormEvent) => {

@@ -82,7 +82,7 @@ export class AIService {
       try {
         return new GoogleGenerativeAI(env.GEMINI_API_KEY);
       } catch (err) {
-        logger.warn('[Gemini AI] Initialization failed, using intelligent analytical engine fallback:', err);
+        logger.warn('[Gemini AI] Initialization failed, using intelligent fallback:', err);
       }
     }
     return null;
@@ -120,6 +120,62 @@ INSTRUCTIONS FOR ADVISORY:
 2. Provide clear, empathetic, actionable financial guidance. Use bullet points and clean Markdown headers.
 3. Highlight high-yield opportunities: optimizing over-budget categories, accelerating goal contributions, or cancelling idle subscriptions.
 4. Keep tone professional, encouraging, and authoritative.`;
+  }
+
+  static async generateSummaryReport(context: FinancialContext): Promise<string> {
+    const ai = this.getAiClient();
+    const systemPrompt = this.buildSystemPrompt(context);
+    const prompt = `${systemPrompt}
+
+Generate a comprehensive personal financial summary report.
+The report MUST contain the following sections, formatted with clean Markdown headers:
+## Financial Health Overview
+## Key Observations
+## Risks & Flags
+## Positive Trends
+## Recommended Actions
+- **Saving Opportunities**:
+- **Budget Advice**:
+- **Subscription Review**:
+- **Goal Progress**:
+- **Short-term Recommendations**:
+- **Long-term Recommendations**:
+
+Cite actual balances, transactions, and amounts from the context to back up your assessments.`;
+
+    if (ai) {
+      try {
+        const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const result = await model.generateContent(prompt);
+        return result.response.text();
+      } catch (err) {
+        logger.warn('[Gemini AI API] Summary generation failed, using fallback report:', err);
+      }
+    }
+
+    // Fallback report if Gemini fails
+    return `## Financial Health Overview
+Your current net worth is **$${context.netWorth.toLocaleString()}** with a **${context.savingsRate}%** savings rate. You have a monthly cash flow surplus of **$${context.cashFlow.toLocaleString()}**.
+
+## Key Observations
+- You have **${context.accounts.length} active accounts** connected.
+- Your monthly expenses stand at **$${context.monthlyExpenses.toLocaleString()}**.
+
+## Risks & Flags
+- You spend **$${context.monthlyExpenses.toLocaleString()}** relative to **$${context.monthlyIncome.toLocaleString()}** income. If cash flow tightens, consider auditing categories.
+${context.budgets.some(b => b.status === 'OVER_BUDGET') ? '- Budget violations present: some budgets are in deficit.' : ''}
+
+## Positive Trends
+- Solid cash flow surplus of **$${context.cashFlow.toLocaleString()}** monthly.
+- Active savings goals indicate long-term growth planning.
+
+## Recommended Actions
+- **Saving Opportunities**: Audit subscriptions and discretionary spending categories.
+- **Budget Advice**: Ensure categories like Dining and Entertainment are kept in check.
+- **Subscription Review**: Audit your active SaaS and cloud subscription spend.
+- **Goal Progress**: Allocate remaining monthly surplus to savings goal priorities.
+- **Short-term Recommendations**: Build a liquid emergency shield of 3-6 months.
+- **Long-term Recommendations**: Automate monthly investments into low-cost index portfolios.`;
   }
 
   static async generateChatResponse(
@@ -227,7 +283,7 @@ INSTRUCTIONS FOR ADVISORY:
           };
         }
       } catch (err) {
-        logger.warn('[Gemini OCR] OCR image parsing failed, executing intelligent text/OCR fallback:', err);
+        logger.warn('[Gemini OCR] OCR image parsing failed, executing text fallback:', err);
       }
     }
 
