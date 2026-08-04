@@ -89,11 +89,9 @@ export const Sidebar: React.FC = () => {
       <div className="border-t border-stone-200/60 pt-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5 min-w-0">
-            <img
-              src={user?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'}
-              alt={user?.name}
-              className="w-8.5 h-8.5 rounded-full border border-stone-300/40 object-cover"
-            />
+            <div className="w-8 h-8 rounded-full bg-stone-900 text-stone-100 flex items-center justify-center font-bold text-xs shrink-0 select-none border border-stone-300">
+              {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U'}
+            </div>
             <div className="overflow-hidden">
               <p className="text-xs font-semibold text-stone-800 truncate">{user?.name}</p>
               <p className="text-[9px] font-mono text-stone-500 truncate mt-0.5">{user?.email}</p>

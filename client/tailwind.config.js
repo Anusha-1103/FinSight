@@ -8,72 +8,72 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Redefine slate to Warm Ivory and Stone editorial shades
+        // Redefine slate to exact Premium Editorial theme hierarchy
         slate: {
-          950: '#FAF8F5', // Warm Ivory background
-          900: '#F3F0E9', // Soft Stone secondary
+          950: '#FAF8F5', // Background: Warm Ivory
+          900: '#F3F0E9', // Secondary: Soft Stone
           850: '#FAF8F5',
-          800: '#E7E5E4', // stone-200 border
-          700: '#D6D3D1', // stone-300
-          600: '#A8A29E', // stone-400
-          500: '#78716C', // stone-500 secondary text
-          400: '#78716C', // stone-500 muted text
-          300: '#57534E', // stone-600
-          200: '#292524', // stone-800
-          100: '#1C1917', // stone-900 (Almost Black)
+          800: '#E7E3DB', // Borders: Luxury Warm Gray
+          700: '#A8A29E', // Disabled: Light Grey
+          600: '#A8A29E', // Disabled: Light Grey
+          500: '#78716C', // Muted Text: Muted Brown
+          400: '#78716C', // Muted Text: Muted Brown
+          300: '#44403C', // Body: Medium Brown
+          200: '#292524', // H2: Dark Brown
+          100: '#1C1917', // H1: Almost Black
           50: '#0F0E0D',
         },
-        // Redefine indigo to luxury almost-black / sage accents
+        // Redefine indigo to match editorial accents
         indigo: {
           950: '#FAF8F5',
           900: '#F3F0E9',
-          800: '#292524',
+          800: '#1C1917',
           700: '#1C1917',
-          600: '#1C1917', // primary button Almost Black
+          600: '#1C1917', // Primary buttons: Almost Black
           500: '#8F9779', // Sage Green primary brand
-          400: '#8F9779', // Sage Green primary brand
+          400: '#8F9779', // Sage Green
           300: '#A3AB8C',
-          200: '#E7E3D7',
+          200: '#E7E3DB',
           100: '#F3F0E9',
           50: '#FAF8F5',
         },
-        // Redefine emerald to Sage Green
+        // Redefine emerald to Success
         emerald: {
-          600: '#747C5E',
-          500: '#8F9779',
-          400: '#A3AB8C',
-          100: '#F3F0E9',
-          50: '#FAF8F5',
+          600: '#2E7D32', // Premium success green
+          500: '#2E7D32',
+          400: '#4CAF50',
+          100: '#E8F5E9',
+          50: '#F1F8F5',
         },
-        // Redefine amber to Soft Gold
+        // Redefine amber to Gold Accent
         amber: {
-          600: '#A88626',
-          500: '#D4AF37',
-          400: '#DFC260',
-          100: '#F3F0E9',
+          600: '#9C7A46',
+          500: '#B08D57', // Gold Accent
+          400: '#C5A370',
+          100: '#F9F6F0',
           50: '#FAF8F5',
         },
-        // Redefine rose to Warm Terracotta
+        // Redefine rose to Danger
         rose: {
-          600: '#A15D39',
-          500: '#C87A53',
-          400: '#D59473',
-          100: '#F3F0E9',
+          600: '#B54C3A',
+          500: '#C65D4A', // Danger: Terracotta/Red
+          400: '#D57C6C',
+          100: '#FDF6F5',
           50: '#FAF8F5',
         },
-        // Redefine blue to Dusty Blue
+        // Redefine blue to Dusty Blue / Sage
         blue: {
-          600: '#5A8289',
-          500: '#7DA2A9',
-          400: '#97B8BE',
+          600: '#758066',
+          500: '#8F9779', // Sage Accent
+          400: '#A3AB8C',
           100: '#F3F0E9',
           50: '#FAF8F5',
         },
         // Redefine purple to Muted Lavender
         purple: {
-          600: '#8561EB',
-          500: '#A78BFA',
-          400: '#BCA6FC',
+          600: '#7F729E',
+          500: '#9588B8',
+          400: '#B2A7D4',
           100: '#F3F0E9',
           50: '#FAF8F5',
         },
@@ -86,29 +86,19 @@ export default {
           dark: '#747C5E',
         },
         gold: {
-          light: '#DFC260',
-          DEFAULT: '#D4AF37',
-          dark: '#A88626',
+          light: '#C5A370',
+          DEFAULT: '#B08D57',
+          dark: '#9C7A46',
         },
         terracotta: {
-          light: '#D59473',
-          DEFAULT: '#C87A53',
-          dark: '#A15D39',
-        },
-        lavender: {
-          light: '#BCA6FC',
-          DEFAULT: '#A78BFA',
-          dark: '#8561EB',
-        },
-        dustyblue: {
-          light: '#97B8BE',
-          DEFAULT: '#7DA2A9',
-          dark: '#5A8289',
+          light: '#D57C6C',
+          DEFAULT: '#C65D4A',
+          dark: '#B54C3A',
         },
         brand: {
           50: '#FAF8F5',
           100: '#F3F0E9',
-          200: '#E7E3D7',
+          200: '#E7E3DB',
           300: '#D0CAAC',
           400: '#B4AC81',
           500: '#8F9779',
@@ -116,19 +106,6 @@ export default {
           700: '#5A6248',
           800: '#434A34',
           900: '#2F3422',
-        },
-        emeraldCustom: {
-          400: '#A3AB8C',
-          500: '#8F9779',
-          600: '#747C5E',
-        },
-        amberCustom: {
-          400: '#DFC260',
-          500: '#D4AF37',
-        },
-        roseCustom: {
-          400: '#D59473',
-          500: '#C87A53',
         }
       },
       fontFamily: {
