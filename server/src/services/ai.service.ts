@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { env } from '../config/env';
-import { CacheService } from './cache.service';
 import { logger } from '../utils/logger.utils';
 
 export interface ChatMessage {
@@ -78,11 +77,11 @@ export interface ExtractedReceiptData {
 
 export class AIService {
   private static getAiClient(): GoogleGenerativeAI | null {
-    if (env.GEMINI_API_KEY) {
+    if (env.GEMINI_API_KEY && env.GEMINI_API_KEY.trim() !== '') {
       try {
         return new GoogleGenerativeAI(env.GEMINI_API_KEY);
       } catch (err) {
-        logger.warn('[Gemini AI] Initialization failed, using intelligent fallback:', err);
+        logger.warn('[Gemini AI] Initialization failed:', err);
       }
     }
     return null;
@@ -124,6 +123,10 @@ INSTRUCTIONS FOR ADVISORY:
 
   static async generateSummaryReport(context: FinancialContext): Promise<string> {
     const ai = this.getAiClient();
+    if (!ai) {
+      throw new Error('Gemini API key is not configured in environment variables (GEMINI_API_KEY).');
+    }
+
     const systemPrompt = this.buildSystemPrompt(context);
     const prompt = `${systemPrompt}
 
@@ -143,39 +146,23 @@ The report MUST contain the following sections, formatted with clean Markdown he
 
 Cite actual balances, transactions, and amounts from the context to back up your assessments.`;
 
-    if (ai) {
-      try {
-        const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
-        const result = await model.generateContent(prompt);
-        return result.response.text();
-      } catch (err) {
-        logger.warn('[Gemini AI API] Summary generation failed, using fallback report:', err);
-      }
+    console.log('=== GEMINI SUMMARY REQUEST ===');
+    console.log('Payload:', prompt);
+
+    try {
+      const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text();
+      
+      console.log('=== GEMINI SUMMARY RESPONSE ===');
+      console.log('Raw Response:', responseText);
+      
+      return responseText;
+    } catch (err: any) {
+      console.error('=== GEMINI SUMMARY FAILED ===');
+      console.error(err);
+      throw new Error(`Gemini summary generation failed: ${err.message || err}`);
     }
-
-    // Fallback report if Gemini fails
-    return `## Financial Health Overview
-Your current net worth is **$${context.netWorth.toLocaleString()}** with a **${context.savingsRate}%** savings rate. You have a monthly cash flow surplus of **$${context.cashFlow.toLocaleString()}**.
-
-## Key Observations
-- You have **${context.accounts.length} active accounts** connected.
-- Your monthly expenses stand at **$${context.monthlyExpenses.toLocaleString()}**.
-
-## Risks & Flags
-- You spend **$${context.monthlyExpenses.toLocaleString()}** relative to **$${context.monthlyIncome.toLocaleString()}** income. If cash flow tightens, consider auditing categories.
-${context.budgets.some(b => b.status === 'OVER_BUDGET') ? '- Budget violations present: some budgets are in deficit.' : ''}
-
-## Positive Trends
-- Solid cash flow surplus of **$${context.cashFlow.toLocaleString()}** monthly.
-- Active savings goals indicate long-term growth planning.
-
-## Recommended Actions
-- **Saving Opportunities**: Audit subscriptions and discretionary spending categories.
-- **Budget Advice**: Ensure categories like Dining and Entertainment are kept in check.
-- **Subscription Review**: Audit your active SaaS and cloud subscription spend.
-- **Goal Progress**: Allocate remaining monthly surplus to savings goal priorities.
-- **Short-term Recommendations**: Build a liquid emergency shield of 3-6 months.
-- **Long-term Recommendations**: Automate monthly investments into low-cost index portfolios.`;
   }
 
   static async generateChatResponse(
@@ -183,71 +170,53 @@ ${context.budgets.some(b => b.status === 'OVER_BUDGET') ? '- Budget violations p
     context: FinancialContext
   ): Promise<{ text: string; suggestedActions: string[] }> {
     const lastUserMsg = messages.filter((m) => m.sender === 'user').pop()?.text || '';
-    const cacheKey = `ai:chat:${Buffer.from(lastUserMsg + context.netWorth).toString('base64').substring(0, 32)}`;
 
-    const cached = await CacheService.get<{ text: string; suggestedActions: string[] }>(cacheKey);
-    if (cached) return cached;
+    const ai = this.getAiClient();
+    if (!ai) {
+      throw new Error('Gemini API key is not configured in environment variables (GEMINI_API_KEY).');
+    }
 
     const systemPrompt = this.buildSystemPrompt(context);
-    const ai = this.getAiClient();
+    const conversationHistory = messages.map((m) => `${m.sender.toUpperCase()}: ${m.text}`).join('\n');
+    const prompt = `${systemPrompt}\n\nCONVERSATION HISTORY:\n${conversationHistory}\n\nASSISTANT:`;
 
-    let responseText = '';
-    if (ai) {
-      try {
-        const conversationHistory = messages.map((m) => `${m.sender.toUpperCase()}: ${m.text}`).join('\n');
-        const prompt = `${systemPrompt}\n\nCONVERSATION HISTORY:\n${conversationHistory}\n\nASSISTANT:`;
+    console.log('=== Incoming User Prompt ===');
+    console.log(lastUserMsg);
+    console.log('=== Gemini Request Payload ===');
+    console.log(prompt);
 
-        const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
-        const result = await model.generateContent(prompt);
-        responseText = result.response.text();
-      } catch (err) {
-        logger.warn('[Gemini AI API] Generation call failed, utilizing local analytical reasoning engine:', err);
+    try {
+      const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text();
+
+      console.log('=== Raw Gemini Response ===');
+      console.log(responseText);
+
+      // Dynamic suggested actions based on context
+      const suggestedActions: string[] = [];
+      if (context.cashFlow > 0) {
+        suggestedActions.push(`Transfer $${Math.round(context.cashFlow * 0.3)} to Savings Goal`);
       }
-    }
-
-    if (!responseText) {
-      const lower = lastUserMsg.toLowerCase();
-      responseText = `### Financial Advisory Analysis for ${context.clientName}\n\n`;
-      responseText += `Based on your current net worth of **$${context.netWorth.toLocaleString()}** and monthly savings rate of **${context.savingsRate}%**:\n\n`;
-
-      if (lower.includes('save') || lower.includes('saving')) {
-        responseText += `• **Optimize Savings Velocity**: Your net monthly cash flow is **$${context.cashFlow.toLocaleString()}**. Automating **$${Math.round(Math.max(100, context.cashFlow * 0.4))}** monthly into high-yield reserves will accelerate your financial freedom.\n`;
-        if (context.subscriptions.length > 0) {
-          responseText += `• **Audit Recurring Subscriptions**: You currently have **${context.subscriptions.length} recurring subscriptions** totaling recurring spend. Auditing unused services can instantly yield extra monthly savings.\n`;
-        }
-      } else if (lower.includes('budget') || lower.includes('spend')) {
-        const overBudgets = context.budgets.filter((b) => b.status === 'OVER_BUDGET' || b.status === 'NEAR_LIMIT');
-        if (overBudgets.length > 0) {
-          responseText += `• **Budget Alert**: You have **${overBudgets.length} categories** near or over budget limit (${overBudgets.map((b) => b.category).join(', ')}). Adjust discretionary spending for the remainder of the month.\n`;
-        } else {
-          responseText += `• **Budget Health**: Your budget categories are currently performing within healthy thresholds. Continue allocating 20% of income directly toward wealth building.\n`;
-        }
-      } else if (lower.includes('goal') || lower.includes('investment')) {
-        responseText += `• **Goal Execution**: You have **${context.goals.length} active goals**. Make sure to prioritize goals flagged as *Behind Schedule* by transferring excess cash flow.\n`;
-      } else {
-        responseText += `• **Net Worth Trajectory**: Maintain an emergency buffer covering 3-6 months of expenses ($${(context.monthlyExpenses * 3).toLocaleString()}) before increasing speculative market exposures.\n`;
-        responseText += `• **Cash Flow Allocation**: Allocate your remaining **$${context.cashFlow.toLocaleString()}** monthly surplus toward your top-priority savings goals.`;
+      if (context.subscriptions.length > 0) {
+        suggestedActions.push(`Audit ${context.subscriptions.length} Recurring Subscriptions`);
       }
-    }
+      if (context.budgets.some((b) => b.status === 'OVER_BUDGET')) {
+        suggestedActions.push('Review Over-Budget Categories');
+      }
+      if (suggestedActions.length === 0) {
+        suggestedActions.push('Create Emergency Fund Goal', 'Set Monthly Budget Limits');
+      }
 
-    // Dynamic suggested actions based on context
-    const suggestedActions: string[] = [];
-    if (context.cashFlow > 0) {
-      suggestedActions.push(`Transfer $${Math.round(context.cashFlow * 0.3)} to Savings Goal`);
-    }
-    if (context.subscriptions.length > 0) {
-      suggestedActions.push(`Audit ${context.subscriptions.length} Recurring Subscriptions`);
-    }
-    if (context.budgets.some((b) => b.status === 'OVER_BUDGET')) {
-      suggestedActions.push('Review Over-Budget Categories');
-    }
-    if (suggestedActions.length === 0) {
-      suggestedActions.push('Create Emergency Fund Goal', 'Set Monthly Budget Limits');
-    }
+      console.log('=== Final Response Sent to Frontend ===');
+      console.log(responseText);
 
-    const payload = { text: responseText, suggestedActions };
-    await CacheService.set(cacheKey, payload, 300);
-    return payload;
+      return { text: responseText, suggestedActions };
+    } catch (err: any) {
+      console.error('=== Gemini Chat Generation Failed ===');
+      console.error(err);
+      throw new Error(`Gemini chat generation failed: ${err.message || err}`);
+    }
   }
 
   static async parseReceiptContent(textOrImageBuffer: string | Buffer): Promise<ExtractedReceiptData> {

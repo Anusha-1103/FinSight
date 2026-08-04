@@ -4,6 +4,7 @@ import { prisma } from '../config/db';
 import { AuthenticatedRequest } from '../middleware/auth.middleware';
 import { AIService, ChatMessage, FinancialContext } from '../services/ai.service';
 import { AuditService } from '../services/audit.service';
+import { logger } from '../utils/logger.utils';
 
 export class AIController {
   static async getSummary(req: AuthenticatedRequest, res: Response, next: NextFunction) {
@@ -15,7 +16,7 @@ export class AIController {
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-      // Execute optimized parallel PostgreSQL database queries
+      // Execute parallel PostgreSQL database queries
       const [
         user,
         accounts,
@@ -161,7 +162,7 @@ export class AIController {
         recentTransactions: formattedTransactions,
       };
 
-      // Generate AI Summary report
+      // Generate AI Summary report using Gemini
       const summaryMarkdown = await AIService.generateSummaryReport(financialContext);
 
       res.json({
@@ -171,8 +172,9 @@ export class AIController {
           context: financialContext,
         },
       });
-    } catch (error) {
-      next(error);
+    } catch (error: any) {
+      logger.error('AI summary generation failed:', error);
+      res.status(500).json({ success: false, error: error.message || 'AI summary generation failed.' });
     }
   }
 
@@ -190,7 +192,7 @@ export class AIController {
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-      // Execute optimized parallel PostgreSQL database queries
+      // Execute parallel PostgreSQL database queries
       const [
         user,
         accounts,
@@ -364,7 +366,7 @@ export class AIController {
         timestamp: userTimestamp,
       });
 
-      // Generate AI Advisory response using Gemini or intelligent reasoning engine
+      // Generate AI Advisory response using Gemini
       const aiResponse = await AIService.generateChatResponse(history, financialContext);
 
       // Append Assistant message to history
@@ -431,8 +433,9 @@ export class AIController {
           },
         },
       });
-    } catch (error) {
-      next(error);
+    } catch (error: any) {
+      logger.error('AI chat endpoint failed:', error);
+      res.status(500).json({ success: false, error: error.message || 'AI chat generation failed.' });
     }
   }
 

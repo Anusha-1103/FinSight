@@ -5,6 +5,7 @@ const crypto_1 = require("crypto");
 const db_1 = require("../config/db");
 const ai_service_1 = require("../services/ai.service");
 const audit_service_1 = require("../services/audit.service");
+const logger_utils_1 = require("../utils/logger.utils");
 class AIController {
     static async getSummary(req, res, next) {
         try {
@@ -13,7 +14,7 @@ class AIController {
             const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
             const thirtyDaysAgo = new Date();
             thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            // Execute optimized parallel PostgreSQL database queries
+            // Execute parallel PostgreSQL database queries
             const [user, accounts, incomeAgg, expenseAgg, budgets, goals, subscriptions, recentTransactions, budgetTransactionAggs,] = await Promise.all([
                 db_1.prisma.user.findUnique({ where: { id: userId } }),
                 db_1.prisma.account.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
@@ -144,7 +145,7 @@ class AIController {
                 subscriptions: formattedSubscriptions,
                 recentTransactions: formattedTransactions,
             };
-            // Generate AI Summary report
+            // Generate AI Summary report using Gemini
             const summaryMarkdown = await ai_service_1.AIService.generateSummaryReport(financialContext);
             res.json({
                 success: true,
@@ -155,7 +156,8 @@ class AIController {
             });
         }
         catch (error) {
-            next(error);
+            logger_utils_1.logger.error('AI summary generation failed:', error);
+            res.status(500).json({ success: false, error: error.message || 'AI summary generation failed.' });
         }
     }
     static async chat(req, res, next) {
@@ -169,7 +171,7 @@ class AIController {
             const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
             const thirtyDaysAgo = new Date();
             thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-            // Execute optimized parallel PostgreSQL database queries
+            // Execute parallel PostgreSQL database queries
             const [user, accounts, incomeAgg, expenseAgg, budgets, goals, subscriptions, recentTransactions, budgetTransactionAggs,] = await Promise.all([
                 db_1.prisma.user.findUnique({ where: { id: userId } }),
                 db_1.prisma.account.findMany({ where: { userId }, orderBy: { createdAt: 'asc' } }),
@@ -325,7 +327,7 @@ class AIController {
                 text: message.trim(),
                 timestamp: userTimestamp,
             });
-            // Generate AI Advisory response using Gemini or intelligent reasoning engine
+            // Generate AI Advisory response using Gemini
             const aiResponse = await ai_service_1.AIService.generateChatResponse(history, financialContext);
             // Append Assistant message to history
             const assistantMessageId = (0, crypto_1.randomUUID)();
@@ -382,7 +384,8 @@ class AIController {
             });
         }
         catch (error) {
-            next(error);
+            logger_utils_1.logger.error('AI chat endpoint failed:', error);
+            res.status(500).json({ success: false, error: error.message || 'AI chat generation failed.' });
         }
     }
     static async getInsights(req, res, next) {
