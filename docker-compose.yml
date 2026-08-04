@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: finsight-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: finsight_user
+      POSTGRES_PASSWORD: finsight_password
+      POSTGRES_DB: finsight_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: finsight-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: finsight-server
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://finsight_user:finsight_password@postgres:5432/finsight_db?schema=public
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=finsight_access_token_secret_production_key_32bytes
+      - REFRESH_TOKEN_SECRET=finsight_refresh_token_secret_production_key_32bytes
+      - CLIENT_URL=http://localhost:5173
+    depends_on:
+      - postgres
+      - redis
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: finsight-client
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api/v1
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:
+  redis_data:

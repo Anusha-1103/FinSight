@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const goal_controller_1 = require("../controllers/goal.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const router = (0, express_1.Router)();
+router.use(auth_middleware_1.authenticateJWT);
+router.get('/', goal_controller_1.GoalController.getGoals);
+router.post('/', goal_controller_1.GoalController.createGoal);
+router.put('/:id', goal_controller_1.GoalController.updateGoal);
+router.delete('/:id', goal_controller_1.GoalController.deleteGoal);
+exports.default = router;

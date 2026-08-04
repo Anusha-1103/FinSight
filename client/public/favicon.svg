@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="112" fill="#121212"/>
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="#1C1C1E" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  
+  <!-- Evolved Polaris Horizon Mark (Concept 1 + Concept 3 Synthesis) -->
+  <g transform="translate(256, 256)">
+    <!-- Vertical Polaris Ray -->
+    <path d="M 0 -150 L 26 0 L 0 150 L -26 0 Z" fill="#C5A059"/>
+    <!-- Sweeping Horizon Path Arc -->
+    <path d="M -140 20 C -70 -70 70 -70 140 20" fill="none" stroke="#4A7C59" stroke-width="28" stroke-linecap="round"/>
+    <!-- Subtle 'F' Lower Arm Anchor -->
+    <path d="M 0 35 L 75 35 L 60 62 L 0 62 Z" fill="#C5A059"/>
+    <!-- Central Focal Core Diamond -->
+    <polygon points="0,-30 30,0 0,30 -30,0" fill="#FBF9F5"/>
+  </g>
+</svg>

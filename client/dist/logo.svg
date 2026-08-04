@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="800" height="200">
+  <rect width="800" height="200" rx="32" fill="#121212"/>
+  
+  <!-- Evolved Polaris Horizon Symbol -->
+  <g transform="translate(40, 20)">
+    <rect width="160" height="160" rx="36" fill="#1C1C1E" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+    <g transform="translate(80, 80) scale(0.45)">
+      <path d="M 0 -150 L 26 0 L 0 150 L -26 0 Z" fill="#C5A059"/>
+      <path d="M -140 20 C -70 -70 70 -70 140 20" fill="none" stroke="#4A7C59" stroke-width="28" stroke-linecap="round"/>
+      <path d="M 0 35 L 75 35 L 60 62 L 0 62 Z" fill="#C5A059"/>
+      <polygon points="0,-30 30,0 0,30 -30,0" fill="#FBF9F5"/>
+    </g>
+  </g>
+  
+  <!-- Newsreader Wordmark Text -->
+  <text x="230" y="118" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="normal" fill="#FBF9F5" letter-spacing="-1.5">FinSight</text>
+  
+  <!-- AI Pill Badge -->
+  <rect x="520" y="70" width="64" height="32" rx="16" fill="rgba(197,160,89,0.15)" stroke="#C5A059" stroke-width="1.5"/>
+  <text x="552" y="91" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" fill="#C5A059" text-anchor="middle">AI</text>
+</svg>
