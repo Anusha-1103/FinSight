@@ -1,0 +1,1 @@
+import{j as o}from"./vendor-motion-CQYS3Jmr.js";import{g as l}from"./index-CgSLMWv2.js";const i=({children:a,className:r,hoverable:s=!1,...e})=>o.jsx("div",{className:l("glass-panel rounded-2xl p-6 relative overflow-hidden transition-all duration-300",s&&"glass-panel-hover",r),...e,children:a});export{i as C};

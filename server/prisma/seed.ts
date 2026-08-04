@@ -124,12 +124,53 @@ async function main() {
   // 4. Create Transactions
   await prisma.transaction.createMany({
     data: [
-      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6500.00, type: 'INCOME', description: 'Tech Corp Bi-Weekly Salary', merchant: 'Tech Corp Inc', date: new Date('2026-08-01') },
-      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 184.20, type: 'EXPENSE', description: 'Weekly Organic Grocery Run', merchant: 'Whole Foods Market', date: new Date('2026-08-02') },
-      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 68.50, type: 'EXPENSE', description: 'Team Lunch & Coffee', merchant: 'Artisan Bistro', date: new Date('2026-08-03') },
-      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 1450.00, type: 'EXPENSE', description: 'Monthly Apartment Rent', merchant: 'Skyline Luxury Apartments', date: new Date('2026-08-01') },
-      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 19.99, type: 'EXPENSE', description: 'Netflix Ultra HD Subscription', merchant: 'Netflix', date: new Date('2026-08-04') },
-      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 45.00, type: 'EXPENSE', description: 'Rideshare to Airport', merchant: 'Uber Technologies', date: new Date('2026-08-03') },
+      // August 2026 (Current Month)
+      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6500.00, type: 'INCOME', description: 'Tech Corp Bi-Weekly Salary', merchant: 'Tech Corp Inc', date: new Date('2026-08-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 184.20, type: 'EXPENSE', description: 'Weekly Organic Grocery Run', merchant: 'Whole Foods Market', date: new Date('2026-08-02'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 68.50, type: 'EXPENSE', description: 'Team Lunch & Coffee', merchant: 'Artisan Bistro', date: new Date('2026-08-03'), status: 'COMPLETED' },
+      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 1450.00, type: 'EXPENSE', description: 'Monthly Apartment Rent', merchant: 'Skyline Luxury Apartments', date: new Date('2026-08-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 19.99, type: 'EXPENSE', description: 'Netflix Ultra HD Subscription', merchant: 'Netflix', date: new Date('2026-08-04'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 45.00, type: 'EXPENSE', description: 'Rideshare to Airport', merchant: 'Uber Technologies', date: new Date('2026-08-03'), status: 'COMPLETED' },
+
+      // July 2026
+      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6800.00, type: 'INCOME', description: 'Tech Corp Salary + Bonus', merchant: 'Tech Corp Inc', date: new Date('2026-07-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 510.00, type: 'EXPENSE', description: 'Weekly Grocery Stock', merchant: 'Safeway', date: new Date('2026-07-08'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 330.00, type: 'EXPENSE', description: 'Dinner with friends', merchant: 'La Taqueria', date: new Date('2026-07-15'), status: 'COMPLETED' },
+      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 320.00, type: 'EXPENSE', description: 'Electric & Internet bills', merchant: 'Comcast / PGE', date: new Date('2026-07-05'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 90.00, type: 'EXPENSE', description: 'Cloud & Tech Subscriptions', merchant: 'AWS / GitHub', date: new Date('2026-07-12'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 220.00, type: 'EXPENSE', description: 'Gas and tolls', merchant: 'Shell / Fastrak', date: new Date('2026-07-20'), status: 'COMPLETED' },
+
+      // June 2026
+      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6500.00, type: 'INCOME', description: 'Tech Corp Salary', merchant: 'Tech Corp Inc', date: new Date('2026-06-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 580.00, type: 'EXPENSE', description: 'Grocery run', merchant: 'Whole Foods Market', date: new Date('2026-06-09'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 340.00, type: 'EXPENSE', description: 'Dinners & lunches', merchant: 'Various Restaurants', date: new Date('2026-06-18'), status: 'COMPLETED' },
+      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 320.00, type: 'EXPENSE', description: 'Utilities', merchant: 'Comcast / PGE', date: new Date('2026-06-05'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 90.00, type: 'EXPENSE', description: 'Cloud bills', merchant: 'AWS / GitHub', date: new Date('2026-06-10'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 190.00, type: 'EXPENSE', description: 'Commuting expenses', merchant: 'Shell', date: new Date('2026-06-25'), status: 'COMPLETED' },
+
+      // May 2026
+      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6500.00, type: 'INCOME', description: 'Tech Corp Salary', merchant: 'Tech Corp Inc', date: new Date('2026-05-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 490.00, type: 'EXPENSE', description: 'Groceries', merchant: 'Safeway', date: new Date('2026-05-12'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 290.00, type: 'EXPENSE', description: 'Dining out', merchant: 'Pizzeria', date: new Date('2026-05-20'), status: 'COMPLETED' },
+      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 320.00, type: 'EXPENSE', description: 'Utility bills', merchant: 'Comcast / PGE', date: new Date('2026-05-05'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 90.00, type: 'EXPENSE', description: 'Monthly SaaS', merchant: 'AWS / GitHub', date: new Date('2026-05-15'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 210.00, type: 'EXPENSE', description: 'Transit & Gas', merchant: 'Shell', date: new Date('2026-05-22'), status: 'COMPLETED' },
+
+      // April 2026
+      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6200.00, type: 'INCOME', description: 'Tech Corp Salary', merchant: 'Tech Corp Inc', date: new Date('2026-04-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 520.00, type: 'EXPENSE', description: 'Groceries', merchant: 'Trader Joes', date: new Date('2026-04-10'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 310.00, type: 'EXPENSE', description: 'Sushi dinner', merchant: 'Sushi Boat', date: new Date('2026-04-14'), status: 'COMPLETED' },
+      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 320.00, type: 'EXPENSE', description: 'Internet / Electricity', merchant: 'Comcast / PGE', date: new Date('2026-04-05'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 90.00, type: 'EXPENSE', description: 'Subscriptions', merchant: 'AWS / GitHub', date: new Date('2026-04-15'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 180.00, type: 'EXPENSE', description: 'Transit', merchant: 'Chevron', date: new Date('2026-04-22'), status: 'COMPLETED' },
+
+      // March 2026
+      { userId: user.id, accountId: checking.id, categoryId: catSalary.id, amount: 6000.00, type: 'INCOME', description: 'Tech Corp Salary', merchant: 'Tech Corp Inc', date: new Date('2026-03-01'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catGroceries.id, amount: 480.00, type: 'EXPENSE', description: 'Groceries', merchant: 'Whole Foods Market', date: new Date('2026-03-09'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catDining.id, amount: 280.00, type: 'EXPENSE', description: 'Team Coffee & Lunches', merchant: 'Blue Bottle', date: new Date('2026-03-15'), status: 'COMPLETED' },
+      { userId: user.id, accountId: checking.id, categoryId: catUtilities.id, amount: 320.00, type: 'EXPENSE', description: 'Utilities', merchant: 'Comcast / PGE', date: new Date('2026-03-05'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catSubscriptions.id, amount: 90.00, type: 'EXPENSE', description: 'SaaS charges', merchant: 'AWS / GitHub', date: new Date('2026-03-12'), status: 'COMPLETED' },
+      { userId: user.id, accountId: creditCard.id, categoryId: catTravel.id, amount: 150.00, type: 'EXPENSE', description: 'Commuting Gas', merchant: 'Chevron', date: new Date('2026-03-20'), status: 'COMPLETED' },
     ],
   });
 
