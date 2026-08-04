@@ -87,38 +87,30 @@ export class AIService {
     return null;
   }
 
-  static buildSystemPrompt(context: FinancialContext): string {
-    return `You are FinSight AI, a world-class Senior Financial Planner, Wealth Manager, and Behavioral Economist.
-
-CLIENT REAL FINANCIAL CONTEXT (FROM POSTGRESQL DATABASE):
+  static buildContextBlock(context: FinancialContext): string {
+    return `CLIENT FINANCIAL CONTEXT:
 - Client Name: ${context.clientName}
 - Preferred Currency: ${context.currency}
-- Net Worth: $${context.netWorth.toLocaleString()} (Total Assets: $${context.totalAssets.toLocaleString()}, Total Debt/Liabilities: $${context.totalLiabilities.toLocaleString()})
-- Monthly Cash Inflow (30d): $${context.monthlyIncome.toLocaleString()}
-- Monthly Outflow / Expenses (30d): $${context.monthlyExpenses.toLocaleString()}
-- Net Monthly Cash Flow: $${context.cashFlow.toLocaleString()}
-- Current Savings Rate: ${context.savingsRate}%
+- Net Worth: $${context.netWorth.toLocaleString()} (Total Assets: $${context.totalAssets.toLocaleString()}, Total Liabilities: $${context.totalLiabilities.toLocaleString()})
+- Monthly Income: $${context.monthlyIncome.toLocaleString()}
+- Monthly Expenses: $${context.monthlyExpenses.toLocaleString()}
+- Cash Flow: $${context.cashFlow.toLocaleString()}
+- Savings Rate: ${context.savingsRate}%
 
-ACCOUNTS HELD:
-${context.accounts.length > 0 ? context.accounts.map((a) => `• ${a.name} (${a.type}, ${a.maskedNumber}): $${a.balance.toLocaleString()}`).join('\n') : '• No connected accounts registered.'}
+ACCOUNTS:
+${context.accounts.length > 0 ? context.accounts.map((a) => `* ${a.name} (${a.type}): $${a.balance.toLocaleString()}`).join('\n') : '* No accounts registered.'}
 
-BUDGET STATUS (CURRENT MONTH):
-${context.budgets.length > 0 ? context.budgets.map((b) => `• ${b.category}: Allocated $${b.allocated}, Spent $${b.spent} (${b.utilization}% used - ${b.status})`).join('\n') : '• No active budgets set.'}
+BUDGETS:
+${context.budgets.length > 0 ? context.budgets.map((b) => `* ${b.category}: Allocated $${b.allocated}, Spent $${b.spent} (${b.utilization}% used - ${b.status})`).join('\n') : '* No active budgets.'}
 
-SAVINGS & INVESTMENT GOALS:
-${context.goals.length > 0 ? context.goals.map((g) => `• ${g.name}: Saved $${g.current} of $${g.target} (Monthly Needed: $${g.monthlyNeeded}/mo - Status: ${g.status})`).join('\n') : '• No active goals set.'}
+GOALS:
+${context.goals.length > 0 ? context.goals.map((g) => `* ${g.name}: Target $${g.target}, Current $${g.current} (Status: ${g.status})`).join('\n') : '* No active goals.'}
 
-RECURRING SUBSCRIPTIONS:
-${context.subscriptions.length > 0 ? context.subscriptions.map((s) => `• ${s.name} (${s.provider}): $${s.amount}/${s.cycle.toLowerCase()} - Next Due: ${s.nextDate} [${s.status}]`).join('\n') : '• No active recurring subscriptions.'}
+SUBSCRIPTIONS:
+${context.subscriptions.length > 0 ? context.subscriptions.map((s) => `* ${s.name} (${s.provider}): $${s.amount}/${s.cycle.toLowerCase()} (Status: ${s.status})`).join('\n') : '* No active subscriptions.'}
 
-LATEST 20 TRANSACTIONS:
-${context.recentTransactions.length > 0 ? context.recentTransactions.map((t) => `• ${t.date} | ${t.merchant} | ${t.category} | ${t.type === 'INCOME' ? '+' : '-'}$${t.amount.toFixed(2)}`).join('\n') : '• No recent transactions.'}
-
-INSTRUCTIONS FOR ADVISORY:
-1. Base all advice strictly on the real financial metrics provided above. Cite specific numbers from the client's context when making recommendations.
-2. Provide clear, empathetic, actionable financial guidance. Use bullet points and clean Markdown headers.
-3. Highlight high-yield opportunities: optimizing over-budget categories, accelerating goal contributions, or cancelling idle subscriptions.
-4. Keep tone professional, encouraging, and authoritative.`;
+RECENT TRANSACTIONS:
+${context.recentTransactions.length > 0 ? context.recentTransactions.map((t) => `* ${t.date} | ${t.merchant} | ${t.category} | ${t.type === 'INCOME' ? '+' : '-'}$${t.amount.toFixed(2)}`).join('\n') : '* No recent transactions.'}`;
   }
 
   static async generateSummaryReport(context: FinancialContext): Promise<string> {
@@ -127,8 +119,8 @@ INSTRUCTIONS FOR ADVISORY:
       throw new Error('Gemini API key is not configured in environment variables (GEMINI_API_KEY).');
     }
 
-    const systemPrompt = this.buildSystemPrompt(context);
-    const prompt = `${systemPrompt}
+    const contextBlock = this.buildContextBlock(context);
+    const prompt = `${contextBlock}
 
 Generate a comprehensive personal financial summary report.
 The report MUST contain the following sections, formatted with clean Markdown headers:
@@ -150,7 +142,10 @@ Cite actual balances, transactions, and amounts from the context to back up your
     console.log('Payload:', prompt);
 
     try {
-      const model = ai.getGenerativeModel({ model: env.GEMINI_MODEL });
+      const model = ai.getGenerativeModel({
+        model: env.GEMINI_MODEL,
+        systemInstruction: 'You are FinSight AI, an authoritative personal financial strategist. Generate a comprehensive personal financial summary report based on the provided context.',
+      });
       const result = await model.generateContent(prompt);
       const responseText = result.response.text();
       
@@ -176,9 +171,9 @@ Cite actual balances, transactions, and amounts from the context to back up your
       throw new Error('Gemini API key is not configured in environment variables (GEMINI_API_KEY).');
     }
 
-    const systemPrompt = this.buildSystemPrompt(context);
+    const contextBlock = this.buildContextBlock(context);
     const conversationHistory = messages.map((m) => `${m.sender.toUpperCase()}: ${m.text}`).join('\n');
-    const prompt = `${systemPrompt}\n\nCONVERSATION HISTORY:\n${conversationHistory}\n\nASSISTANT:`;
+    const prompt = `${contextBlock}\n\nCONVERSATION HISTORY:\n${conversationHistory}\n\nASSISTANT:`;
 
     console.log('=== Incoming User Prompt ===');
     console.log(lastUserMsg);
@@ -186,7 +181,14 @@ Cite actual balances, transactions, and amounts from the context to back up your
     console.log(prompt);
 
     try {
-      const model = ai.getGenerativeModel({ model: env.GEMINI_MODEL });
+      const model = ai.getGenerativeModel({
+        model: env.GEMINI_MODEL,
+        systemInstruction: `You are FinSight AI, a professional financial advisor and personal wealth assistant.
+Answer the user's prompt helpfully and directly.
+- Fulfill creative or general knowledge requests (e.g. "Write a poem", "Tell me a joke", "What is the capital of Japan?") directly and instantly without returning a financial report.
+- If the user asks about their finances, subscriptions, budgets, or investments, use the provided CLIENT FINANCIAL CONTEXT to give specific, data-backed answers and advice.`,
+      });
+
       const result = await model.generateContent(prompt);
       const responseText = result.response.text();
 
