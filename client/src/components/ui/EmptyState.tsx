@@ -20,15 +20,15 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('p-8 text-center space-y-4 glass-panel rounded-2xl border border-slate-800/80', className)}>
+    <div className={cn('p-8 text-center space-y-4 bg-white rounded-xl border border-stone-200/80 shadow-sm', className)}>
       {icon && (
-        <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 mx-auto flex items-center justify-center">
+        <div className="w-10 h-10 rounded-lg bg-stone-100 border border-stone-200/60 text-stone-600 mx-auto flex items-center justify-center shadow-xs">
           {icon}
         </div>
       )}
       <div className="max-w-sm mx-auto space-y-1">
-        <h4 className="text-sm font-bold text-slate-100">{title}</h4>
-        <p className="text-xs text-slate-400 leading-relaxed">{description}</p>
+        <h4 className="text-xs font-bold text-stone-900">{title}</h4>
+        <p className="text-[11px] text-stone-500 leading-relaxed font-sans">{description}</p>
       </div>
       {actionLabel && onAction && (
         <Button size="sm" onClick={onAction}>

@@ -161,14 +161,14 @@ export const AIAdvisor: React.FC = () => {
         );
       } else if (cleanLine.startsWith('## ')) {
         renderedElements.push(
-          <h3 key={index} className="text-sm font-bold text-white mt-5 mb-3 border-b border-slate-800 pb-1 flex items-center gap-2">
+          <h3 key={index} className="text-sm font-bold text-slate-100 mt-5 mb-3 border-b border-slate-800 pb-1 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-purple-400 shrink-0" />
             {cleanLine.substring(3)}
           </h3>
         );
       } else if (cleanLine.startsWith('# ')) {
         renderedElements.push(
-          <h2 key={index} className="text-base font-black text-white mt-6 mb-4">
+          <h2 key={index} className="text-base font-black text-slate-100 mt-6 mb-4">
             {cleanLine.substring(2)}
           </h2>
         );
@@ -225,7 +225,7 @@ export const AIAdvisor: React.FC = () => {
     return (
       <Card className="p-12 text-center space-y-4">
         <AlertCircle className="w-12 h-12 text-rose-400 mx-auto" />
-        <h3 className="text-lg font-bold text-white">Failed to connect to AI summary engine</h3>
+        <h3 className="text-lg font-bold text-slate-100">Failed to connect to AI summary engine</h3>
         <p className="text-slate-400 text-xs">Ensure your server environment has a valid GEMINI_API_KEY configured.</p>
         <Button size="sm" onClick={() => refetchSummary()} className="gap-2 mx-auto">
           <RefreshCw className="w-4 h-4" /> Retry
@@ -249,7 +249,7 @@ export const AIAdvisor: React.FC = () => {
     <div className="space-y-6 pb-12">
       {/* Header Banner */}
       <div>
-        <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+        <h2 className="text-xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
           FinSight AI Financial Advisor
           <Badge variant="purple" className="font-mono text-[10px] uppercase">
             Gemini Active
@@ -271,7 +271,7 @@ export const AIAdvisor: React.FC = () => {
             <div className="space-y-4 text-xs font-mono">
               <div className="flex justify-between items-center border-b border-slate-800 pb-2">
                 <span className="text-slate-400 font-sans">Net Worth</span>
-                <span className="font-bold text-white text-sm">{formatCurrency(context.netWorth)}</span>
+                <span className="font-bold text-slate-100 text-sm">{formatCurrency(context.netWorth)}</span>
               </div>
               <div className="flex justify-between items-center border-b border-slate-800 pb-2">
                 <span className="text-slate-400 font-sans">Monthly Inflow</span>
@@ -315,7 +315,7 @@ export const AIAdvisor: React.FC = () => {
                     <h5 className="font-semibold text-slate-200 truncate max-w-[140px] font-sans">{acc.name}</h5>
                     <p className="text-[9px] text-slate-500 mt-0.5">{acc.maskedNumber} • {acc.type}</p>
                   </div>
-                  <span className="font-bold text-white">{formatCurrency(acc.balance)}</span>
+                  <span className="font-bold text-slate-100">{formatCurrency(acc.balance)}</span>
                 </div>
               ))}
             </div>
@@ -458,7 +458,7 @@ export const AIAdvisor: React.FC = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSendPrompt(inputValue)}
                   disabled={isSending}
-                  className="flex-1 bg-slate-900 border border-slate-800/80 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors disabled:opacity-50 font-mono"
+                  className="flex-1 bg-slate-900 border border-slate-800/80 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors disabled:opacity-50 font-mono"
                 />
                 <Button
                   size="sm"

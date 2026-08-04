@@ -34,7 +34,7 @@ export const Notifications: React.FC = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight">System Alerts & Notifications</h2>
+          <h2 className="text-xl font-extrabold text-slate-100 tracking-tight">System Alerts & Notifications</h2>
           <p className="text-xs text-slate-400">Budget overspend alerts, subscription renewal warnings, and AI insight updates</p>
         </div>
         <Button size="sm" variant="outline" onClick={markAllRead} className="gap-2">

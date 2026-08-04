@@ -29,19 +29,19 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed bottom-6 right-6 z-50 space-y-2 max-w-sm">
+      <div className="fixed bottom-6 right-6 z-50 space-y-2.5 max-w-sm">
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className="p-4 rounded-2xl glass-panel border border-slate-800 shadow-2xl space-y-1 animate-in fade-in slide-in-from-bottom-2"
+            className="p-4 rounded-lg bg-white border border-stone-200/80 shadow-md space-y-1.5 animate-in fade-in slide-in-from-bottom-2"
           >
-            <div className="flex items-center justify-between">
-              <h5 className="text-xs font-bold text-slate-100">{toast.title}</h5>
+            <div className="flex items-center justify-between gap-4">
+              <h5 className="text-xs font-bold text-stone-900">{toast.title}</h5>
               <Badge variant={toast.type === 'danger' ? 'danger' : toast.type === 'success' ? 'success' : 'purple'}>
                 {toast.type || 'info'}
               </Badge>
             </div>
-            <p className="text-xs text-slate-400">{toast.message}</p>
+            <p className="text-[11px] text-stone-500 font-sans leading-relaxed">{toast.message}</p>
           </div>
         ))}
       </div>

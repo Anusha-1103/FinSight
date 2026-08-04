@@ -284,7 +284,7 @@ export const Transactions: React.FC = () => {
       {/* Top Page Action Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight">Transactions</h2>
+          <h2 className="text-xl font-extrabold text-slate-100 tracking-tight">Transactions</h2>
           <p className="text-xs text-slate-400">Complete transaction ledger backed by PostgreSQL with real-time balance calculations</p>
         </div>
 
@@ -724,7 +724,7 @@ export const Transactions: React.FC = () => {
             <div>
               <h5 className="font-bold text-rose-200">Delete Record?</h5>
               <p className="text-slate-300 mt-1 leading-relaxed">
-                Are you sure you want to delete the transaction entry for <span className="font-bold text-white">{deletingTransaction?.description}</span> ({formatCurrency(deletingTransaction?.amount || 0)})? This will automatically recalculate and restore your account balance in PostgreSQL.
+                Are you sure you want to delete the transaction entry for <span className="font-bold text-slate-100">{deletingTransaction?.description}</span> ({formatCurrency(deletingTransaction?.amount || 0)})? This will automatically recalculate and restore your account balance in PostgreSQL.
               </p>
             </div>
           </div>

@@ -16,21 +16,21 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#FAF8F5] disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 focus:ring-indigo-500',
-    secondary: 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20 focus:ring-emerald-500',
-    outline: 'border border-slate-700 hover:border-slate-500 text-slate-200 bg-slate-900/50 hover:bg-slate-800 focus:ring-slate-500',
-    danger: 'bg-rose-600 hover:bg-rose-500 text-white shadow-lg shadow-rose-600/30 focus:ring-rose-500',
-    ghost: 'text-slate-300 hover:text-white hover:bg-slate-800/60 focus:ring-slate-500',
-    glass: 'glass-panel hover:bg-slate-800/80 text-white border-slate-700/60 shadow-lg',
+    primary: 'bg-stone-900 hover:bg-stone-850 text-white shadow-sm focus:ring-stone-900',
+    secondary: 'bg-sage text-white hover:bg-sage-dark shadow-sm focus:ring-sage',
+    outline: 'border border-stone-300 hover:border-stone-400 text-stone-700 bg-white hover:bg-stone-50 focus:ring-stone-500',
+    danger: 'bg-terracotta text-white hover:bg-terracotta-dark shadow-sm focus:ring-terracotta',
+    ghost: 'text-stone-600 hover:text-stone-900 hover:bg-stone-100 focus:ring-stone-500',
+    glass: 'bg-white/80 backdrop-blur-md border border-stone-200 hover:bg-white text-stone-900 shadow-sm',
   };
 
   const sizes = {
     sm: 'px-3 py-1.5 text-xs',
-    md: 'px-4 py-2.5 text-sm',
-    lg: 'px-6 py-3 text-base',
+    md: 'px-4 py-2 text-sm',
+    lg: 'px-6 py-2.5 text-base',
   };
 
   return (

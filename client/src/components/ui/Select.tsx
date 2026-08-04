@@ -10,24 +10,24 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ className, label, options, error, ...props }, ref) => {
     return (
-      <div className="w-full space-y-1.5">
-        {label && <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">{label}</label>}
+      <div className="w-full space-y-1">
+        {label && <label className="block text-[10px] font-bold font-mono tracking-wider text-stone-500 uppercase">{label}</label>}
         <select
           ref={ref}
           className={cn(
-            'w-full bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors',
-            error && 'border-rose-500',
+            'w-full bg-white border border-stone-200 rounded-lg px-4 py-2 text-xs text-stone-900 focus:outline-none focus:border-sage focus:ring-2 focus:ring-sage/20 transition-all shadow-sm',
+            error && 'border-terracotta focus:border-terracotta focus:ring-terracotta/20',
             className
           )}
           {...props}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value} className="bg-slate-900 text-slate-100">
+            <option key={opt.value} value={opt.value} className="bg-white text-stone-900">
               {opt.label}
             </option>
           ))}
         </select>
-        {error && <p className="text-xs text-rose-400 font-medium">{error}</p>}
+        {error && <p className="text-[10px] text-terracotta font-medium font-mono">{error}</p>}
       </div>
     );
   }

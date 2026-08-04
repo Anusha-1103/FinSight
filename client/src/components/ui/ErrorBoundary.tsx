@@ -31,7 +31,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center font-bold text-xl">
             !
           </div>
-          <h2 className="text-lg font-extrabold text-white">Something went wrong</h2>
+          <h2 className="text-lg font-extrabold text-slate-100">Something went wrong</h2>
           <p className="text-xs text-slate-400 max-w-md">
             The workspace encountered an unexpected interface boundary exception. Please refresh to restore calm balance.
           </p>

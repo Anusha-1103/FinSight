@@ -49,7 +49,7 @@ export const AdminPanel: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+        <h2 className="text-xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
           <ShieldAlert className="w-5 h-5 text-rose-400" />
           System Administration & RBAC Controls
         </h2>
@@ -60,19 +60,19 @@ export const AdminPanel: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="border-indigo-500/20">
           <span className="text-xs text-slate-400 font-semibold uppercase">Total Platform Users</span>
-          <h3 className="text-2xl font-extrabold text-white mt-2">{metrics?.totalUsers || 0}</h3>
+          <h3 className="text-2xl font-extrabold text-slate-100 mt-2">{metrics?.totalUsers || 0}</h3>
         </Card>
         <Card className="border-emerald-500/20">
           <span className="text-xs text-slate-400 font-semibold uppercase">Processed Transactions</span>
-          <h3 className="text-2xl font-extrabold text-white mt-2">{metrics?.totalTransactions || 0}</h3>
+          <h3 className="text-2xl font-extrabold text-slate-100 mt-2">{metrics?.totalTransactions || 0}</h3>
         </Card>
         <Card className="border-blue-500/20">
           <span className="text-xs text-slate-400 font-semibold uppercase">Memory RSS Usage</span>
-          <h3 className="text-2xl font-extrabold text-white mt-2">{metrics?.memoryUsageMB || 0} MB</h3>
+          <h3 className="text-2xl font-extrabold text-slate-100 mt-2">{metrics?.memoryUsageMB || 0} MB</h3>
         </Card>
         <Card className="border-amber-500/20">
           <span className="text-xs text-slate-400 font-semibold uppercase">Server Uptime</span>
-          <h3 className="text-2xl font-extrabold text-white mt-2">{metrics?.serverUptimeSeconds || 0} sec</h3>
+          <h3 className="text-2xl font-extrabold text-slate-100 mt-2">{metrics?.serverUptimeSeconds || 0} sec</h3>
         </Card>
       </div>
 

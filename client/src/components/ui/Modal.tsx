@@ -48,25 +48,25 @@ export const Modal: React.FC<ModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-slate-950/80 backdrop-blur-md"
+            className="fixed inset-0 bg-stone-900/60 backdrop-blur-md"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.98, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', duration: 0.3 }}
+            exit={{ opacity: 0, scale: 0.98, y: 15 }}
+            transition={{ type: 'spring', duration: 0.25 }}
             className={cn(
-              'w-full glass-panel border border-slate-800 rounded-2xl p-6 relative z-10 shadow-2xl overflow-hidden',
+              'w-full bg-white border border-stone-200/80 rounded-xl p-6 relative z-10 shadow-xl overflow-hidden',
               widths[maxWidth]
             )}
           >
-            <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-4">
-              <h3 className="text-lg font-bold text-slate-100">{title}</h3>
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3 mb-4">
+              <h3 className="text-sm font-bold text-stone-900 font-sans tracking-tight">{title}</h3>
               <button
                 onClick={onClose}
-                className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                className="p-1 rounded-md text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
             {children}

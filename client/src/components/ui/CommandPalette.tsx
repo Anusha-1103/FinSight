@@ -84,7 +84,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
             />
             <button
               onClick={onClose}
-              className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+              className="p-1 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-slate-800"
             >
               <X className="w-4 h-4" />
             </button>

@@ -301,7 +301,7 @@ export const BudgetsGoals: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           <Card className="p-4 border-indigo-500/20">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Allocated</span>
-            <h3 className="text-xl font-extrabold text-white tracking-tight font-mono mt-1">{formatCurrency(budgetSummary.totalAllocated)}</h3>
+            <h3 className="text-xl font-extrabold text-slate-100 tracking-tight font-mono mt-1">{formatCurrency(budgetSummary.totalAllocated)}</h3>
           </Card>
           <Card className="p-4 border-emerald-500/20">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Spent</span>
@@ -323,7 +323,7 @@ export const BudgetsGoals: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+            <h2 className="text-xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
               <Flame className="w-5 h-5 text-rose-400" />
               Category Budgets & Velocity
             </h2>
@@ -419,7 +419,7 @@ export const BudgetsGoals: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           <Card className="p-4 border-indigo-500/20">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Goal Target</span>
-            <h3 className="text-xl font-extrabold text-white tracking-tight font-mono mt-1">{formatCurrency(goalSummary.totalGoalValue)}</h3>
+            <h3 className="text-xl font-extrabold text-slate-100 tracking-tight font-mono mt-1">{formatCurrency(goalSummary.totalGoalValue)}</h3>
           </Card>
           <Card className="p-4 border-emerald-500/20">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Saved</span>
@@ -441,7 +441,7 @@ export const BudgetsGoals: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+            <h2 className="text-xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
               <Target className="w-5 h-5 text-emerald-400" />
               Wealth Savings Goals & Projections
             </h2>
@@ -622,7 +622,7 @@ export const BudgetsGoals: React.FC = () => {
             <div>
               <h5 className="font-bold text-rose-200">Delete Budget Cap?</h5>
               <p className="text-slate-300 mt-1 leading-relaxed">
-                Are you sure you want to delete the spending budget for <span className="font-bold text-white">{deletingBudget?.category?.name}</span>?
+                Are you sure you want to delete the spending budget for <span className="font-bold text-slate-100">{deletingBudget?.category?.name}</span>?
               </p>
             </div>
           </div>
@@ -742,7 +742,7 @@ export const BudgetsGoals: React.FC = () => {
             <div>
               <h5 className="font-bold text-rose-200">Delete Savings Goal?</h5>
               <p className="text-slate-300 mt-1 leading-relaxed">
-                Are you sure you want to delete <span className="font-bold text-white">{deletingGoal?.name}</span>? This action will permanently remove this savings milestone and its monthly projection calculations.
+                Are you sure you want to delete <span className="font-bold text-slate-100">{deletingGoal?.name}</span>? This action will permanently remove this savings milestone and its monthly projection calculations.
               </p>
             </div>
           </div>

@@ -35,24 +35,24 @@ export const DailyReflectionWidget: React.FC<DailyReflectionProps> = ({ score, g
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -10 }}
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="glass-panel border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-slate-900/60 to-slate-950 p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl"
+      transition={{ duration: 0.25 }}
+      className="bg-white border border-stone-200 p-5 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm"
     >
       <div className="flex items-start gap-4">
-        <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-300 shrink-0 mt-0.5">
-          <Icon className="w-5 h-5 text-indigo-400" />
+        <div className="w-9 h-9 rounded-lg bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-600 shrink-0 mt-0.5">
+          <Icon className="w-5 h-5" />
         </div>
         <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm font-bold text-slate-100">
-              {greeting}, <span className="text-indigo-400">{user?.name}</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-xs font-bold text-stone-900">
+              {greeting}, <span className="font-serif text-sm font-black text-stone-950">{user?.name}</span>
             </h3>
-            <Badge variant="purple">Score: {score}/100 Grade {grade}</Badge>
+            <Badge variant="purple">Score: {score}/100 • Grade {grade}</Badge>
           </div>
-          <p className="text-xs text-slate-300 leading-relaxed font-serif italic">{recommendation}</p>
-          <p className="text-[11px] text-slate-500 font-mono pt-1">{randomQuote}</p>
+          <p className="text-xs text-stone-600 leading-relaxed font-serif italic">{recommendation}</p>
+          <p className="text-[9px] text-stone-400 font-mono tracking-wide pt-0.5">{randomQuote}</p>
         </div>
       </div>
     </motion.div>

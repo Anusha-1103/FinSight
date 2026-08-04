@@ -10,22 +10,22 @@ export interface ProgressProps {
 
 export const Progress: React.FC<ProgressProps> = ({
   value,
-  color = 'bg-indigo-500',
+  color = 'bg-stone-850',
   className,
   size = 'md',
 }) => {
   const clamped = Math.min(100, Math.max(0, value));
 
   const heights = {
-    sm: 'h-1.5',
-    md: 'h-2.5',
-    lg: 'h-4',
+    sm: 'h-1',
+    md: 'h-2',
+    lg: 'h-3.5',
   };
 
   return (
-    <div className={cn('w-full bg-slate-800/80 rounded-full overflow-hidden p-0.5', heights[size], className)}>
+    <div className={cn('w-full bg-stone-200/60 rounded-full overflow-hidden', heights[size], className)}>
       <div
-        className={cn('h-full rounded-full transition-all duration-500 ease-out', color)}
+        className={cn('h-full rounded-full transition-all duration-300 ease-out', color)}
         style={{ width: `${clamped}%` }}
       />
     </div>

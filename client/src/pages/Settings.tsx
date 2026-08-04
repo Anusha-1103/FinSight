@@ -65,7 +65,7 @@ export const Settings: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-extrabold text-white tracking-tight">Workspace Preferences</h2>
+        <h2 className="text-xl font-extrabold text-slate-100 tracking-tight">Workspace Preferences</h2>
         <p className="text-xs text-slate-400">Configure profile, security, design tokens, AI advisory engine, and data backups</p>
       </div>
 

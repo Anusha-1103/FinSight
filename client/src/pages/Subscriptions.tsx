@@ -284,7 +284,7 @@ export const Subscriptions: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <Card className="p-4 border-indigo-500/20">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Monthly Spend</span>
-          <h3 className="text-xl font-extrabold text-white tracking-tight font-mono mt-1">{formatCurrency(summary.totalMonthlySpend)}</h3>
+          <h3 className="text-xl font-extrabold text-slate-100 tracking-tight font-mono mt-1">{formatCurrency(summary.totalMonthlySpend)}</h3>
         </Card>
         <Card className="p-4 border-purple-500/20">
           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Annualized Spend</span>
@@ -307,7 +307,7 @@ export const Subscriptions: React.FC = () => {
       {/* Top Action Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2">
             <CalendarDays className="w-5 h-5 text-indigo-400" />
             Subscriptions
           </h2>
@@ -385,7 +385,7 @@ export const Subscriptions: React.FC = () => {
                 <div className="pt-2 border-t border-slate-800/60 flex items-end justify-between">
                   <div>
                     <span className="text-[10px] text-slate-400 uppercase tracking-wider font-mono">Recurring Cost</span>
-                    <h3 className="text-xl font-extrabold text-white font-mono tracking-tight">{formatCurrency(sub.amount)}</h3>
+                    <h3 className="text-xl font-extrabold text-slate-100 font-mono tracking-tight">{formatCurrency(sub.amount)}</h3>
                   </div>
                   <div className="text-right">
                     <Badge variant="purple" className="text-[10px] uppercase font-mono">
@@ -562,7 +562,7 @@ export const Subscriptions: React.FC = () => {
       <Modal isOpen={!!paymentSub} onClose={() => setPaymentSub(null)} title={`Record Payment — ${paymentSub?.name || ''}`}>
         <form onSubmit={handleRecordPaymentSubmit} className="space-y-4 text-xs">
           <div className="p-4 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-200 space-y-1">
-            <h5 className="font-bold text-sm text-white">{paymentSub?.name}</h5>
+            <h5 className="font-bold text-sm text-slate-100">{paymentSub?.name}</h5>
             <p className="text-slate-300">Provider: {paymentSub?.provider}</p>
             <p className="text-slate-300">Amount Due: <span className="font-bold text-emerald-400 font-mono">{formatCurrency(paymentSub?.amount || 0)}</span></p>
           </div>
@@ -597,7 +597,7 @@ export const Subscriptions: React.FC = () => {
             <div>
               <h5 className="font-bold text-rose-200">Remove {deletingSub?.name}?</h5>
               <p className="text-slate-300 mt-1 leading-relaxed">
-                Are you sure you want to remove <span className="font-bold text-white">{deletingSub?.name}</span>? This subscription will be removed from your active recurring bill tracking.
+                Are you sure you want to remove <span className="font-bold text-slate-100">{deletingSub?.name}</span>? This subscription will be removed from your active recurring bill tracking.
               </p>
             </div>
           </div>

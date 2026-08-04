@@ -10,26 +10,26 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, label, error, leftIcon, ...props }, ref) => {
     return (
-      <div className="w-full space-y-1.5">
-        {label && <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">{label}</label>}
+      <div className="w-full space-y-1">
+        {label && <label className="block text-[10px] font-bold font-mono tracking-wider text-stone-500 uppercase">{label}</label>}
         <div className="relative">
           {leftIcon && (
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
               {leftIcon}
             </div>
           )}
           <input
             ref={ref}
             className={cn(
-              'w-full bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors',
+              'w-full bg-white border border-stone-200 rounded-lg px-4 py-2 text-xs text-stone-900 placeholder-stone-400 focus:outline-none focus:border-sage focus:ring-2 focus:ring-sage/20 transition-all shadow-sm',
               leftIcon && 'pl-10',
-              error && 'border-rose-500 focus:border-rose-500 focus:ring-rose-500',
+              error && 'border-terracotta focus:border-terracotta focus:ring-terracotta/20',
               className
             )}
             {...props}
           />
         </div>
-        {error && <p className="text-xs text-rose-400 font-medium">{error}</p>}
+        {error && <p className="text-[10px] text-terracotta font-medium font-mono">{error}</p>}
       </div>
     );
   }

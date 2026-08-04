@@ -57,7 +57,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
               {p.name}:
             </span>
-            <span className="font-extrabold text-white">{formatCurrency(p.value)}</span>
+            <span className="font-extrabold text-slate-100">{formatCurrency(p.value)}</span>
           </div>
         ))}
       </div>
@@ -138,7 +138,7 @@ export const Analytics: React.FC = () => {
     return (
       <Card className="p-12 text-center space-y-4">
         <AlertCircle className="w-12 h-12 text-rose-400 mx-auto" />
-        <h3 className="text-lg font-bold text-white">Failed to load analytics</h3>
+        <h3 className="text-lg font-bold text-slate-100">Failed to load analytics</h3>
         <p className="text-slate-400 text-xs">There was an error communicating with the PostgreSQL aggregates engine.</p>
         <Button size="sm" onClick={() => refetch()} className="gap-2 mx-auto">
           <RefreshCw className="w-4 h-4" /> Retry Connection
@@ -166,7 +166,7 @@ export const Analytics: React.FC = () => {
       {/* Header and Filters Selector */}
       <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+          <h2 className="text-2xl font-extrabold text-slate-100 tracking-tight flex items-center gap-2.5">
             <TrendingUp className="w-6 h-6 text-indigo-400" />
             Financial Intelligence & Analytics
           </h2>
@@ -479,7 +479,7 @@ export const Analytics: React.FC = () => {
                       <span className="text-slate-300 font-sans">{item.name}</span>
                     </div>
                     <div className="text-right">
-                      <span className="text-white font-extrabold font-mono block">
+                      <span className="text-slate-100 font-extrabold font-mono block">
                         {formatCurrency(item.amount)}
                       </span>
                       <span className="text-[10px] text-slate-500 block font-mono">{item.percentage}%</span>
@@ -566,7 +566,7 @@ export const Analytics: React.FC = () => {
                       <span className="text-slate-300 font-sans">{item.name}</span>
                     </div>
                     <div className="text-right">
-                      <span className="text-white font-extrabold font-mono block">
+                      <span className="text-slate-100 font-extrabold font-mono block">
                         {formatCurrency(item.amount)}
                       </span>
                       <span className="text-[10px] text-slate-500 block font-mono">{item.percentage}%</span>
@@ -618,7 +618,7 @@ export const Analytics: React.FC = () => {
           <Card className="p-4 border-slate-800 flex items-center justify-between">
             <div className="space-y-0.5">
               <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Average Monthly Spend</span>
-              <h4 className="text-lg font-bold text-white tracking-tight font-mono">
+              <h4 className="text-lg font-bold text-slate-100 tracking-tight font-mono">
                 {formatCurrency(healthMetrics.averageMonthlySpending)}
               </h4>
             </div>
@@ -637,7 +637,7 @@ export const Analytics: React.FC = () => {
           <Card className="p-4 border-slate-800 flex items-center justify-between">
             <div className="space-y-0.5">
               <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Average Monthly Inflow</span>
-              <h4 className="text-lg font-bold text-white tracking-tight font-mono">
+              <h4 className="text-lg font-bold text-slate-100 tracking-tight font-mono">
                 {formatCurrency(healthMetrics.averageMonthlyIncome)}
               </h4>
             </div>
@@ -656,7 +656,7 @@ export const Analytics: React.FC = () => {
           <Card className="p-4 border-slate-800 flex items-center justify-between">
             <div className="space-y-0.5">
               <span className="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Average Savings Rate</span>
-              <h4 className="text-lg font-bold text-white tracking-tight font-mono">
+              <h4 className="text-lg font-bold text-slate-100 tracking-tight font-mono">
                 {healthMetrics.averageSavingsRate}%
               </h4>
             </div>

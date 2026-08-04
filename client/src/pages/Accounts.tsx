@@ -176,7 +176,7 @@ export const Accounts: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight">Accounts</h2>
+          <h2 className="text-xl font-extrabold text-slate-100 tracking-tight">Accounts</h2>
           <p className="text-xs text-slate-400">Manage checking, high-yield savings, credit card liabilities, and investment portfolios</p>
         </div>
         <Button size="sm" onClick={() => setIsCreateModalOpen(true)} className="gap-2 shrink-0">
@@ -212,7 +212,7 @@ export const Accounts: React.FC = () => {
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-white shrink-0 shadow-md"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-slate-100 shrink-0 shadow-md"
                       style={{ backgroundColor: cardColor }}
                     >
                       {getAccountIcon(acc.type)}
@@ -373,7 +373,7 @@ export const Accounts: React.FC = () => {
             <div>
               <h5 className="font-bold text-rose-200">Delete {deletingAccount?.name}?</h5>
               <p className="text-slate-300 mt-1 leading-relaxed">
-                Are you sure you want to delete <span className="font-bold text-white">{deletingAccount?.name}</span>? This action cannot be undone. Linked transaction records will remain in your ledger but will no longer contribute to this account's balance.
+                Are you sure you want to delete <span className="font-bold text-slate-100">{deletingAccount?.name}</span>? This action cannot be undone. Linked transaction records will remain in your ledger but will no longer contribute to this account's balance.
               </p>
             </div>
           </div>

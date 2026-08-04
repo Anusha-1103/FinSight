@@ -14,14 +14,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIChat, onOpenCommandPalet
   const { user } = useAuth();
 
   return (
-    <header className="h-16 glass-panel border-b border-slate-800/80 sticky top-0 z-20 px-6 flex items-center justify-between ml-64">
+    <header className="h-16 bg-[#FAF8F5] border-b border-stone-200/60 sticky top-0 z-20 px-6 flex items-center justify-between ml-64">
       {/* Title / Welcome */}
       <div className="flex items-center gap-4">
         <div>
-          <h2 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-            Welcome back, <span className="text-indigo-400">{user?.name}</span> 👋
+          <h2 className="text-xs font-semibold text-stone-800 flex items-center gap-2">
+            Welcome back, <span className="font-serif text-sm font-black text-stone-900">{user?.name}</span> 👋
           </h2>
-          <p className="text-[11px] text-slate-400 font-medium">FinSight AI Portfolio Dashboard</p>
+          <p className="text-[10px] text-stone-500 font-mono tracking-wider uppercase mt-0.5">PORTFOLIO OVERVIEW</p>
         </div>
       </div>
 
@@ -30,36 +30,35 @@ export const Header: React.FC<HeaderProps> = ({ onOpenAIChat, onOpenCommandPalet
         {/* Cmd+K Command Palette Trigger */}
         <button
           onClick={onOpenCommandPalette}
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 hover:text-slate-200 hover:border-slate-700 transition-all font-mono"
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-stone-200/80 text-[10px] text-stone-600 hover:text-stone-950 hover:border-stone-300 transition-all font-mono shadow-sm"
         >
-          <Command className="w-3.5 h-3.5 text-indigo-400" />
+          <Command className="w-3.5 h-3.5 text-stone-500" />
           <span>Search (Cmd+K)</span>
         </button>
 
         {/* Keyboard Shortcuts (?) */}
         <button
           onClick={onOpenShortcuts}
-          className="p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-slate-800 transition-colors"
+          className="p-2 rounded-lg text-stone-500 hover:text-stone-950 hover:bg-stone-100 border border-stone-200/80 bg-white transition-colors shadow-sm"
           title="Keyboard Shortcuts (?)"
         >
           <HelpCircle className="w-4 h-4" />
         </button>
 
         {/* Currency badge */}
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 font-mono">
-          <Globe className="w-3.5 h-3.5 text-indigo-400" />
+        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-stone-200/80 text-[10px] text-stone-600 font-mono shadow-sm">
+          <Globe className="w-3.5 h-3.5 text-stone-400" />
           <span>{user?.currency || 'USD'} ($)</span>
         </div>
 
         {/* AI Financial Advisor Quick Floating Button */}
         <Button
           onClick={onOpenAIChat}
-          variant="glass"
           size="sm"
-          className="gap-2 text-indigo-300 border-indigo-500/30 hover:border-indigo-500/60 shadow-lg shadow-indigo-500/10"
+          className="gap-1.5 bg-stone-900 text-slate-100 hover:bg-stone-800 shadow-sm text-xs font-medium rounded-lg px-3.5 h-8.5"
         >
-          <Sparkles className="w-4 h-4 text-indigo-400 animate-pulse" />
-          <span className="hidden sm:inline font-semibold">Ask FinSight AI</span>
+          <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+          <span className="hidden sm:inline font-sans">Ask Advisor</span>
         </Button>
 
         {/* Notifications Popover */}

@@ -34,11 +34,11 @@ export const Login: React.FC = () => {
       <div className="w-full max-w-md space-y-6">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 mx-auto flex items-center justify-center shadow-xl shadow-indigo-500/20">
-            <TrendingUp className="w-7 h-7 text-white" />
+          <div className="w-10 h-10 rounded-lg bg-stone-900 mx-auto flex items-center justify-center shadow-sm">
+            <TrendingUp className="w-5.5 h-5.5 text-[#FAF8F5]" />
           </div>
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">FinSight AI</h1>
-          <p className="text-xs text-slate-400">Sign in to your intelligent wealth portal</p>
+          <h1 className="text-xl font-bold text-stone-950 tracking-tight font-serif">FinSight</h1>
+          <p className="text-[10px] text-stone-500 font-mono tracking-wide uppercase">WEALTH MANAGEMENT</p>
         </div>
 
         {/* Login Card */}
