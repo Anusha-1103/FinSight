@@ -150,7 +150,7 @@ Cite actual balances, transactions, and amounts from the context to back up your
     console.log('Payload:', prompt);
 
     try {
-      const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = ai.getGenerativeModel({ model: env.GEMINI_MODEL });
       const result = await model.generateContent(prompt);
       const responseText = result.response.text();
       
@@ -186,7 +186,7 @@ Cite actual balances, transactions, and amounts from the context to back up your
     console.log(prompt);
 
     try {
-      const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const model = ai.getGenerativeModel({ model: env.GEMINI_MODEL });
       const result = await model.generateContent(prompt);
       const responseText = result.response.text();
 
@@ -227,7 +227,7 @@ Cite actual balances, transactions, and amounts from the context to back up your
 {"merchantName": "...", "totalAmount": 45.99, "dateExtracted": "2026-08-01", "category": "Groceries", "confidenceScore": 0.98}`;
 
         const base64Image = textOrImageBuffer.toString('base64');
-        const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = ai.getGenerativeModel({ model: env.GEMINI_MODEL });
         const result = await model.generateContent([
           prompt,
           {

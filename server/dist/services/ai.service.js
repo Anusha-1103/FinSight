@@ -75,7 +75,7 @@ Cite actual balances, transactions, and amounts from the context to back up your
         console.log('=== GEMINI SUMMARY REQUEST ===');
         console.log('Payload:', prompt);
         try {
-            const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+            const model = ai.getGenerativeModel({ model: env_1.env.GEMINI_MODEL });
             const result = await model.generateContent(prompt);
             const responseText = result.response.text();
             console.log('=== GEMINI SUMMARY RESPONSE ===');
@@ -102,7 +102,7 @@ Cite actual balances, transactions, and amounts from the context to back up your
         console.log('=== Gemini Request Payload ===');
         console.log(prompt);
         try {
-            const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+            const model = ai.getGenerativeModel({ model: env_1.env.GEMINI_MODEL });
             const result = await model.generateContent(prompt);
             const responseText = result.response.text();
             console.log('=== Raw Gemini Response ===');
@@ -138,7 +138,7 @@ Cite actual balances, transactions, and amounts from the context to back up your
                 const prompt = `Analyze this receipt image. Extract merchant name, total amount, transaction date (YYYY-MM-DD), and appropriate expense category (e.g. Groceries, Dining Out, Shopping, Utilities, Travel). Respond ONLY in valid JSON format:
 {"merchantName": "...", "totalAmount": 45.99, "dateExtracted": "2026-08-01", "category": "Groceries", "confidenceScore": 0.98}`;
                 const base64Image = textOrImageBuffer.toString('base64');
-                const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+                const model = ai.getGenerativeModel({ model: env_1.env.GEMINI_MODEL });
                 const result = await model.generateContent([
                     prompt,
                     {

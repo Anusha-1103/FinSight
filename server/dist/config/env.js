@@ -15,6 +15,7 @@ const envSchema = zod_1.z.object({
     JWT_SECRET: zod_1.z.string().default('finsight_super_secret_access_token_key_2026_production'),
     REFRESH_TOKEN_SECRET: zod_1.z.string().default('finsight_super_secret_refresh_token_key_2026_production'),
     GEMINI_API_KEY: zod_1.z.string().optional(),
+    GEMINI_MODEL: zod_1.z.string().default('gemini-2.5-flash'),
     CLOUDINARY_CLOUD_NAME: zod_1.z.string().optional(),
     CLOUDINARY_API_KEY: zod_1.z.string().optional(),
     CLOUDINARY_API_SECRET: zod_1.z.string().optional(),
